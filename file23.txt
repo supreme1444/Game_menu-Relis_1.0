@@ -1,0 +1,2 @@
+User(id=0, name=dadadw, nicknames=awdaadwa, rateGN=3, rate0X=1)
+

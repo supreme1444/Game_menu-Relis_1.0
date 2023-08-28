@@ -111,58 +111,63 @@ public class File {
     }
 
     //Начисление баллов
-    public static void SummCount(int userId, String nickname, int guessTNScore) {
+   public static void SummCount(int userId, String nickname, int guessTNScore) {
         String line;
-        ArrayList<String> lines = new ArrayList<>();
-        int maxIdNumer = -1;
+        List<String> lines = new ArrayList<>();
         String str = "";
         String endChar = "";
+
+        Path filePath = Paths.get("player_base.txt");
+
         try {
-            RandomAccessFile raf = new RandomAccessFile("player_base.txt", "rw");
-            while ((line = raf.readLine()) != null) {
-                lines.add(line);
-            }
-            raf.close();
-            raf = new RandomAccessFile("player_base.txt", "rw");
-            if (guessTNScore == 1) {
+            lines = Files.readAllLines(filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        switch (guessTNScore) {
+            case 1:
                 str = "rateGN=";
                 endChar = ",";
-            } else if (guessTNScore == 2) {
+                break;
+            case 2:
                 str = "rate0X=";
                 endChar = ")";
-            }
-            boolean foundAndUpdate = false;
-            for (int cursorPosition = 0; cursorPosition < lines.size(); cursorPosition++) {
-                line = lines.get(cursorPosition);
-                String[] lineList = line.split(";");
-                for (int i = 0; i < lineList.length; i++) {
-                    int startIndex = lineList[i].indexOf(str) + str.length();
-                    int endIndex = lineList[i].indexOf(endChar, startIndex);
-                    if (startIndex >= 0 && endIndex >= 0 && endIndex > startIndex) {
-                        String resultString = lineList[i].substring(startIndex, endIndex);
-                        int number = Integer.parseInt(resultString) + 1;
+                break;
+        }
 
-                        String modifiedNumber = String.valueOf(number);
-                        int lineNumber = userId;
-                        String replaceStartPosition = str + resultString;
-                        String replaceStartPosition1 = str + modifiedNumber;
-                        if (cursorPosition == lineNumber) {
-                            line = line.replaceFirst(replaceStartPosition, replaceStartPosition1);
-                            foundAndUpdate = true;
-                            break;
-                        }
-                    }
+        boolean foundAndUpdate = false;
+
+        for (int cursorPosition = 0; cursorPosition < lines.size(); cursorPosition++) {
+            line = lines.get(cursorPosition);
+
+            if (cursorPosition == userId) {
+                int startIndex = line.indexOf(str) + str.length();
+                int endIndex = line.indexOf(endChar, startIndex);
+
+                if (startIndex >= 0 && endIndex >= 0 && endIndex > startIndex) {
+                    String resultString = line.substring(startIndex, endIndex);
+                    int number = Integer.parseInt(resultString) + 1;
+
+                    String modifiedNumber = String.valueOf(number);
+                    String replaceStartPosition = str + resultString;
+                    String replaceStartPosition1 = str + modifiedNumber;
+
+                    line = line.replaceFirst(replaceStartPosition, replaceStartPosition1);
+                    foundAndUpdate = true;
                 }
+                lines.set(cursorPosition, line);
+
                 if (foundAndUpdate) {
-                    lines.set(cursorPosition, line);
                     break;
                 }
             }
-            System.out.println(nickname + " Вам начислен балл");
-            for (String updatedLine : lines) {
-                raf.writeBytes(updatedLine + "\n");
-            }
-            raf.close();
+        }
+
+        System.out.println(nickname + " Вам начислен балл");
+
+        try {
+            Files.write(filePath, lines);
         } catch (IOException e) {
             e.printStackTrace();
         }

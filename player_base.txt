@@ -1,0 +1,6 @@
+User(id=0, name=dadadw, nicknames=awdaadwa, rateGN=3, rate0X=1)
+User(id=1, name=Максим, nicknames=MaX1986, rateGN=0, rate0X=8)
+User(id=2, name=Дима, nicknames=Dimon666, rateGN=0, rate0X=1)
+User(id=3, name=Стас, nicknames=Stas777, rateGN=0, rate0X=0)
+User(id=4, name=ff, nicknames=feee, rateGN=0, rate0X=1)
+

@@ -50,7 +50,7 @@ public class Authorization {
                 String nicknamesSize = list.get(i).nicknames;
                 File.writer(list);
                 Game.choice(userId, nicknamesSize);
-            } else if (checkId == 2) { //2 = это не пустой список.
+            } else if (checkId == 2) { //2 = это заполненный список.
                 userId = File.checkId();
                 userId = userId + 1;
                 System.out.println("Ваш id номер " + userId);

@@ -37,7 +37,7 @@ public class Authorization {
     }
 
     public static void begin(List<User> list) {
-        while (true) {
+        
 
             int userId;
             System.out.println("Введите имя и никнейм.");
@@ -64,5 +64,5 @@ public class Authorization {
             }
         }
     }
-}
+
 

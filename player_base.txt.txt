@@ -1,3 +1,0 @@
-User(id=0, name=dadadw, nicknames=awdaadwa, rateGN=3, rate0X=1)
-User(id=1, name=Максим, nicknames=MaX1986, rateGN=0, rate0X=8)
-

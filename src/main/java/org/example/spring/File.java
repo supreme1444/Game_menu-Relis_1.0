@@ -32,13 +32,11 @@ public class File {
     }
 
     //Проверка на есть ли user в базе.
-    public static int checkUser(String user) {
+     public static int checkUser(String user) {
         String fileName = "player_base.txt";
-        try {
-            FileReader fileReader = new FileReader(fileName);
-            BufferedReader bufferedReader = new BufferedReader(fileReader);
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(fileName), "UTF-8"))) {
             String line;
-            while ((line = bufferedReader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 System.out.println(line);
                 String[] lineList = line.split(";");
                 String searchnick = "nicknames=";
@@ -60,8 +58,8 @@ public class File {
                     }
                 }
             }
-            bufferedReader.close();
-            fileReader.close();
+            reader.close();
+
         } catch (IOException e) {
             e.printStackTrace();
 

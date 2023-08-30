@@ -23,19 +23,11 @@ public class File {
 
     //Заброс в файл инфы
     public static void writer(List<User> list) {
-        try {
-            FileWriter fileWriter = new FileWriter("player_base.txt", true);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            PrintWriter printWriter = new PrintWriter(bufferedWriter);
-            for (User user : list) {
-                printWriter.println(user.toString());
-            }
-            printWriter.close();
-            bufferedWriter.close();
-            fileWriter.close();
-            System.out.println("Пользователь добавлен");
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        try (BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("player_base.txt",true), "UTF-8"))) {
+            writer.write(list.toString());
+            writer.newLine();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -28,17 +28,12 @@ public class Authorization {
             } else {
                 System.out.println("Такого пользователя нет,войдите заново");
             }
-
         } catch (Exception e) {
             System.out.println("Вводите цифры.Попробуйте заново.");
-        }
-        //Регистрация пользователя.
-
+        }  
     }
-
+    //Регистрация пользователя.
     public static void begin(List<User> list) {
-        
-
             int userId;
             System.out.println("Введите имя и никнейм.");
             int checkId = File.distributor(user);

@@ -68,11 +68,11 @@ public class File {
     }
 
     //Присваивание id
-    public static int checkId() {
+   public static int checkId() {
         String line;
         int maxIdNumer = 0;
         try {
-            BufferedReader br = new BufferedReader(new FileReader("player_base.txt"));
+            BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream("player_base.txt"),"UTF-8"));
 
             while ((line = br.readLine()) != null) {
                 System.out.println(line);
